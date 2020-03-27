@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>video auto play</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.video {
+			display: block;
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<!-- <button class="btn-play">点击播放视频</button> -->
+	<video src="./video.mp4" style="object-fit: fill;" controls="controls" autoplay="autoplay" loop class="video" playsinline="true" x-webkit-airplay="true" webkit-playsinline="true" x5-video-player-type="h5" x5-video-player-type="h5-page"></video>
+
+	<script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.btn-play').click(function(){
+				$('.video')[0].play();
+			});
+		});
+	</script>
+</body>
+</html>

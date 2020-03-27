@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepClone</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var data = [
+			{
+				id: '1',
+				name: '面部',
+				items: [
+					{
+						id: '1-1',
+						name: '眼睛',
+						children: [
+							{
+								id: '1-1-1',
+								name: '大眼睛'
+							},
+							{
+								id: '1-1-2',
+								name: '小眼睛'
+							}
+						]
+					},
+					{
+						id: '1-2',
+						name: '嘴巴',
+						children: [
+							{
+								id: '1-2-1',
+								name: '大嘴巴'
+							},
+							{
+								id: '1-2-2',
+								name: '小嘴巴'
+							}
+						]
+					}
+				]
+			},
+			{
+				id: '2',
+				name: '身体',
+				items: [
+					{
+						id: '2-1',
+						name: '手',
+						children: [
+							{
+								id: '2-1-1',
+								name: '大手'
+							},
+							{
+								id: '2-1-2',
+								name: '小手'
+							}
+						]
+					},
+					{
+						id: '2-2',
+						name: '脚',
+						children: [
+							{
+								id: '2-2-1',
+								name: '大脚'
+							},
+							{
+								id: '2-2-2',
+								name: '小脚'
+							}
+						]
+					}
+				]
+			}
+		];
+
+		function deepCopy(obj) {
+		    var newobj = obj.constructor === Array ? [] : {};
+		    if (typeof obj !== 'object') {
+				return obj;
+		    } else {
+		    	for (var i in obj) {
+				    if (typeof obj[i] === 'object') { //判断对象的这条属性是否为对象
+				    	newobj[i] = deepCopy(obj[i]);  //若是对象进行嵌套调用
+				    }else {
+				        newobj[i] = obj[i];
+				    }
+			    }
+		    }
+		    return newobj; //返回深度克隆后的对象
+		}
+
+		function deepClone(source) {
+			if (!source && typeof source !== 'object') {
+			    throw new Error('error arguments', 'shallowClone')
+			}
+			const targetObj = source.constructor === Array ? [] : {}
+			Object.keys(source).forEach((keys) => {
+			    if (source[keys] && typeof source[keys] === 'object') {
+			    	targetObj[keys] = source[keys].constructor === Array ? [] : {}
+			    	targetObj[keys] = deepClone(source[keys])
+			    } else {
+			    	targetObj[keys] = source[keys]
+			    }
+			})
+			return targetObj;
+		}
+
+
+		var data2 = deepCopy(data);
+		data2[1].name = '手和脚';
+		var data3 = deepClone(data);
+		data3[1].name = '小手和小脚';
+		console.log(data, data2, data3);
+
+	</script>
+</body>
+</html>
